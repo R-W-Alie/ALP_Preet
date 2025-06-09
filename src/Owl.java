@@ -7,8 +7,8 @@ public class Owl extends Pet {
         "The owl watches you in silence."
     };
 
-    public Owl(String name, int hp) {
-        super(name, hp, owl_sentences, "🦉");
+    public Owl(String name, int fun) {
+        super(name, fun, owl_sentences, "🦉");
     }
 
     @Override

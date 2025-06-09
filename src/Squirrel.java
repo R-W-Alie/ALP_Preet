@@ -7,8 +7,8 @@ public class Squirrel extends Pet {
         "The squirrel hides a treasure."
     };
 
-    public Squirrel(String name, int hp) {
-        super(name, hp, squirrel_sentences, "🐿️");
+    public Squirrel(String name, int fun) {
+        super(name, fun, squirrel_sentences, "🐿️");
     }
 
     @Override

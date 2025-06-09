@@ -3,14 +3,14 @@ import java.util.Random;
 public abstract class Pet {
     private int id;
     protected String name;
-    protected int hp;
+    protected int fun;
     protected String[] sentences;
     private String icon;
     private static final Random rand = new Random();
 
-    public Pet(String name, int hp, String[] sentences, String icon) {
+    public Pet(String name, int fun, String[] sentences, String icon) {
         this.name = name;
-        this.hp = hp;
+        this.fun = fun;
         this.sentences = sentences;
         this.icon = icon;
     }
@@ -25,7 +25,7 @@ public abstract class Pet {
     }
 
     public int getHp() {
-        return this.hp;
+        return this.fun;
     }
 
     public String[] getSentences() {
@@ -45,8 +45,8 @@ public abstract class Pet {
         this.name = name;
     }
 
-    public void setHp(int hp) {
-        this.hp = Math.max(0, hp); // prevent negative HP
+    public void setHp(int fun) {
+        this.fun = Math.max(0, fun); // prevent negative HP
     }
 
     public void setSentences(String[] sentences) {
@@ -64,12 +64,12 @@ public abstract class Pet {
 
     // New: check if pet is alive
     public boolean isAlive() {
-        return this.hp > 0;
+        return this.fun > 0;
     }
 
     // New: display full info (for viewAnimals)
     public String getDisplayInfo() {
-        return icon + " " + name + " the " + getSpecies() + " (HP: " + hp + ")";
+        return icon + " " + name + " the " + getSpecies() + " (Fun Level: " + fun + ")";
     }
 
     // Interaction behavior

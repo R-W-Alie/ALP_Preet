@@ -7,8 +7,8 @@ public class Spider extends Pet {
         "The spider waits patiently for prey."
     };
 
-    public Spider(String name, int hp) {
-        super(name, hp, spider_sentences, "🕷️");
+    public Spider(String name, int fun) {
+        super(name, fun, spider_sentences, "🕷️");
     }
 
     @Override

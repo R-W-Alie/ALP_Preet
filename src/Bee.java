@@ -7,8 +7,8 @@ public class Bee extends Pet {
         "The bee guards the hive bravely."
     };
 
-    public Bee(String name, int hp) {
-        super(name, hp, bee_sentences, "🐝");
+    public Bee(String name, int fun) {
+        super(name, fun, bee_sentences, "🐝");
     }
 
     @Override

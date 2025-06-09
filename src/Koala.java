@@ -7,8 +7,8 @@ public class Koala extends Pet {
         "The koala takes a cozy nap."
     };
 
-    public Koala(String name, int hp) {
-        super(name, hp, koala_sentences, "🐨");
+    public Koala(String name, int fun) {
+        super(name, fun, koala_sentences, "🐨");
     }
 
     @Override

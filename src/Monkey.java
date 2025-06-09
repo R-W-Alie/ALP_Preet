@@ -7,8 +7,8 @@ public class Monkey extends Pet {
         "The monkey scratches its head curiously."
     };
 
-    public Monkey(String name, int hp) {
-        super(name, hp, monkey_sentences, "🐵");
+    public Monkey(String name, int fun) {
+        super(name, fun, monkey_sentences, "🐵");
     }
 
     @Override
