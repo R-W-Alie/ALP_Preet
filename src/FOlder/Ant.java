@@ -8,8 +8,8 @@ public class Ant extends Pet {
         "The ant forms a line with others."
     };
 
-    public Ant(String name, int fun) {
-        super(name, fun, ant_sentences, "🐜");
+    public Ant(String name) {
+        super(name, ant_sentences, "🐜");
     }
 
     @Override
