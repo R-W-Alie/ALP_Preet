@@ -159,7 +159,7 @@ public class Menu {
                     s.next();
                     choice = -1;
                 }
-            } while (choice < 0 || choice > 4);
+            } while (choice < 0 || choice > 5);
             switch (choice) {
                 case 1:
                     doQuest(user);
@@ -503,42 +503,38 @@ public class Menu {
         } else {
             System.out.println("Your tree is fully grown! 🌳");
             for (StringBuilder line : tree4) { // tree4 juga
-                System.out.println(line.toString()); // Gunakan .toString() untuk mencetak
+                System.out.println(line.toString());
             }
-            return; // Penting: keluar dari method setelah mencetak pohon yang sudah fully grown
+            return;
         }
 
         List<Pet> pets = user.getPets();
         Random random = new Random();
 
-        // Collect emoji representations of user's pets
         List<String> petSymbols = new ArrayList<>();
         for (Pet pet : pets) {
             petSymbols.add(pet.getIcon());
         }
 
-        // Place each pet emoji randomly on the tree (max 1 per iteration, up to 10
-        // tries)
         for (String symbol : petSymbols) {
             int attempts = 0;
             boolean placed = false;
 
             while (!placed && attempts < 10) {
-                if (tree == null || tree.length == 0) { // Tambahkan null check dan length check
+                if (tree == null || tree.length == 0) { 
                     System.err.println("Warning: Tree array is null or empty. Cannot place pets.");
                     break;
                 }
                 int row = random.nextInt(tree.length);
 
-                if (tree[row] == null || tree[row].length() == 0) { // Hindari error jika baris kosong
+                if (tree[row] == null || tree[row].length() == 0) {
                     attempts++;
                     continue;
                 }
                 int col = random.nextInt(tree[row].length());
 
-                // Hanya ganti karakter non-spasi untuk menjaga struktur pohon
                 if (tree[row].charAt(col) != ' ') {
-                    tree[row].setCharAt(col, symbol.charAt(0)); // Ini sekarang akan berfungsi
+                    tree[row].setCharAt(col, symbol.charAt(0)); 
                     placed = true;
                 }
 
@@ -546,9 +542,8 @@ public class Menu {
             }
         }
 
-        // Print the final decorated tree
         for (StringBuilder line : tree) {
-            System.out.println(line.toString()); // Gunakan .toString() untuk mencetak
+            System.out.println(line.toString());
         }
     }
 
