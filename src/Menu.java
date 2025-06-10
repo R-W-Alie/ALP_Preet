@@ -173,7 +173,7 @@ public class Menu {
                     playMemoryGame(user);
                     break;
                 case 5:
-                    createPet(user);
+                    choosePet(user);
                     break;
                 case 0:
                     System.out.println("\nMay your roots find nourishment elsewhere.");
@@ -296,9 +296,8 @@ public class Menu {
         // Show available pets
         for (int i = 0; i < availablePets.size(); i++) {
             Pet pet = availablePets.get(i);
-            System.out.print("%d. %s %s (HP: %d)%n", i + 1, pet.getIcon(), pet.getName());
+            System.out.printf("%d. %s %s%n", i + 1, pet.getIcon(), pet.getName());
         }
-
         System.out.print("Enter the number of the animal you want to adopt (or 0 to cancel): ");
         String input = s.nextLine().trim();
         int choice;
