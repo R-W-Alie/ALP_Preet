@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -18,22 +17,11 @@ public class UserManager {
             writer.write(user.getUsername() + "\n");
             writer.write(user.getPassword() + "\n");
             writer.write(user.getLevel() + "\n");
-            writer.write(user.getPoint() + "\n"); // Menyimpan point baru
+            writer.write(user.getPoint() + "\n");
 
-            // for (Pet pet : user.pets) {
-            //     String type;
-            //     // Perhatikan: UserManager ini masih hanya akan menyimpan Frog dan Bird.
-            //     // Hewan peliharaan jenis lain akan diabaikan saat menyimpan.
-            //     if (pet instanceof Frog) {
-            //         type = "Frog";
-            //     } else if (pet instanceof Bird) {
-            //         type = "Bird";
-            //     } else {
-            //         continue; // Lewati jenis hewan peliharaan yang tidak dikenali
-            //     }
-
-            //     //writer.write("PET:" + type + "," + pet.getName() + "," + pet.getHp() + "\n");
-            // }
+            for (Pet pet : user.getPets()) {
+                writer.write("PET:" + pet.getSpecies() + "," + pet.getName() + "," + pet.getIcon() + "\n");
+            }
 
         } catch (IOException e) {
             System.err.println("Failed to save user data:");
@@ -50,10 +38,8 @@ public class UserManager {
             String uname = reader.readLine();
             String pass = reader.readLine();
             int level = Integer.parseInt(reader.readLine());
-            String pointLine = reader.readLine();
-            int point = pointLine != null ? Integer.parseInt(pointLine) : 0;
+            int point = Integer.parseInt(reader.readLine());
 
-            // Menggunakan konstruktor User yang diperbarui dengan 'point'
             User user = new User(uname, pass, level, point);
 
             String line;
@@ -61,21 +47,14 @@ public class UserManager {
                 if (line.startsWith("PET:")) {
                     String[] parts = line.substring(4).split(",");
                     if (parts.length >= 3) {
-                        String type = parts[0];
-                        String petName = parts[1];
-                        int petHp = Integer.parseInt(parts[2]);
+                        String species = parts[0];
+                        String name = parts[1];
+                        String icon = parts[2];
 
-                        //Pet pet = switch (type) {
-                            // Perhatikan: UserManager ini masih hanya akan memuat Frog dan Bird.
-                            // Jenis hewan peliharaan lain tidak akan dimuat.
-                            //case "Frog" -> new Frog(petName, petHp);
-                            //case "Bird" -> new Bird(petName, petHp);
-                            //default -> null; // Jika jenis tidak dikenali, jangan buat objek pet
-                        //};
-
-                        //if (pet != null) {
-                            //user.pets.add(pet);
-                        //}
+                        Pet pet = createPetByType(species, name);
+                        if (pet != null) {
+                            user.addPet(pet);
+                        }
                     }
                 }
             }
@@ -87,5 +66,24 @@ public class UserManager {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Pet createPetByType(String type, String name) {
+        return switch (type) {
+            case "Frog" -> new Frog(name);
+            case "Bird" -> new Bird(name);
+            case "Snake" -> new Snake(name);
+            case "Ant" -> new Ant(name);
+            case "Bee" -> new Bee(name);
+            case "Koala" -> new Koala(name);
+            case "Lizard" -> new Lizard(name);
+            case "Monkey" -> new Monkey(name);
+            case "Owl" -> new Owl(name);
+            case "Sloth" -> new Sloth(name);
+            case "Spider" -> new Spider(name);
+            case "Squirrel" -> new Squirrel(name);
+            case "Caterpillar" -> new Caterpillar(name);
+            default -> null;
+        };
     }
 }
