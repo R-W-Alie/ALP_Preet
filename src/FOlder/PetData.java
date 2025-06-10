@@ -3,7 +3,7 @@ import java.util.*;
 
 public class PetData {
         public static final List<Pet> allPets = Arrays.asList(
-                        new Pet("ants", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("ants", new String[] { // Sentences array defined explicitly here
                                         "The ants are marching.",
                                         "An ant scurries across the floor."
                         }, "🐜") {
@@ -14,7 +14,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("koala", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("koala", new String[] { // Sentences array defined explicitly here
                                         "The koala is munching eucalyptus.",
                                         "The koala looks very sleepy."
                         }, "🐨") {
@@ -25,7 +25,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("monkey", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("monkey", new String[] { // Sentences array defined explicitly here
                                         "The monkey swings through the trees.",
                                         "A monkey chatters playfully."
                         }, "🐵") {
@@ -36,7 +36,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("squirrel", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("squirrel", new String[] { // Sentences array defined explicitly here
                                         "The squirrel buries a nut.",
                                         "A squirrel climbs swiftly up the tree."
                         }, "🐿️") {
@@ -47,7 +47,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("owl", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("owl", new String[] { // Sentences array defined explicitly here
                                         "The owl hoots softly.",
                                         "An owl gazes with wise eyes."
                         }, "🦉") {
@@ -58,7 +58,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("frog", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("frog", new String[] { // Sentences array defined explicitly here
                                         "The frog croaks by the pond.",
                                         "A frog leaps into the water."
                         }, "🐸") {
@@ -69,7 +69,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("bee", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("bee", new String[] { // Sentences array defined explicitly here
                                         "The bee buzzes around a flower.",
                                         "A bee collects nectar."
                         }, "🐝") {
@@ -80,8 +80,8 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Caterpillar("caterpillar", 10), // Caterpillar already handles its own sentences internally
-                        new Pet("snake", 10, new String[] { // Sentences array defined explicitly here
+                        new Caterpillar("caterpillar"), // Caterpillar already handles its own sentences internally
+                        new Pet("snake", new String[] { // Sentences array defined explicitly here
                                         "The snake slithers through the grass.",
                                         "A snake basks in the sun."
                         }, "🐍") {
@@ -92,7 +92,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("spider", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("spider", new String[] { // Sentences array defined explicitly here
                                         "The spider weaves a web.",
                                         "A spider hangs patiently from a thread."
                         }, "🕷️") {
@@ -103,7 +103,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("lizard", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("lizard", new String[] { // Sentences array defined explicitly here
                                         "The lizard basks in the sun.",
                                         "A lizard scurries across a rock."
                         }, "🦎") {
@@ -114,7 +114,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("bird", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("bird", new String[] { // Sentences array defined explicitly here
                                         "The bird chirps a happy tune.",
                                         "A bird soars high in the sky."
                         }, "🦜") {
@@ -125,7 +125,7 @@ public class PetData {
                                                                         .nextInt(getSentences().length)]);
                                 }
                         },
-                        new Pet("sloth", 10, new String[] { // Sentences array defined explicitly here
+                        new Pet("sloth", new String[] { // Sentences array defined explicitly here
                                         "The sloth moves very slowly.",
                                         "A sloth hangs upside down."
                         }, "🦥") {

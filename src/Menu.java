@@ -137,7 +137,7 @@ public class Menu {
         User user = UserManager.loadFromFile(username);
 
         if (user == null) {
-  4          System.out.println("User not found or file corrupted.");
+            System.out.println("User not found or file corrupted.");
         } else if (!user.getPassword().equals(password)) {
             System.out.println("Incorrect password.");
         } else {

@@ -8,8 +8,8 @@ public class Caterpillar extends Pet {
         "The caterpillar dreams of becoming a butterfly."
     };
 
-    public Caterpillar(String name, int fun) {
-        super(name, fun, caterpillar_sentences, "🐛");
+    public Caterpillar(String name) {
+        super(name, caterpillar_sentences, "🐛");
     }
 
     @Override
