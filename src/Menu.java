@@ -268,18 +268,18 @@ public class Menu {
             return;
         }
 
-        if (user.pets.size() > maxPets) {
+        if (user.getPets().size() >= maxPets) {
             System.out.println("You can only have " + maxPets + " animal(s) at your current level (" + level
                     + "). Level up to adopt more!");
             return;
         }
 
-        // Filter pets not owned by user
+        // Filter available pets (not already owned)
         List<Pet> availablePets = new ArrayList<>();
         for (Pet pet : PetData.allPets) {
             boolean owned = false;
-            for (Pet p : user.pets) {
-                if (p.getId() == pet.getId()) {
+            for (Pet ownedPet : user.getPets()) {
+                if (pet.getName().equals(ownedPet.getName()) && pet.getIcon().equals(ownedPet.getIcon())) {
                     owned = true;
                     break;
                 }
@@ -294,11 +294,14 @@ public class Menu {
             return;
         }
 
-        // Show available pets
+        int remainingSlots = maxPets - user.getPets().size();
+        System.out.println("You can adopt " + remainingSlots + " more animal(s).");
+
         for (int i = 0; i < availablePets.size(); i++) {
-            Pet pet = availablePets.get(i);
-            System.out.printf("%d. %s %s%n", i + 1, pet.getIcon(), pet.getName());
+            Pet petsy = availablePets.get(i);
+            System.out.printf("%d. %s %s%n", i + 1, petsy.getIcon(), petsy.getName());
         }
+
         System.out.print("Enter the number of the animal you want to adopt (or 0 to cancel): ");
         String input = s.nextLine().trim();
         int choice;
@@ -320,9 +323,9 @@ public class Menu {
         }
 
         Pet chosenPet = availablePets.get(choice - 1);
-        user.pets.add(chosenPet);
+        user.addPet(chosenPet);
         System.out.println("You have adopted " + chosenPet.getName() + " " + chosenPet.getIcon() + "!");
-        UserManager.saveToFile(user); // Save user changes
+        UserManager.saveToFile(user);
         mainmenu(user);
     }
 
@@ -342,15 +345,11 @@ public class Menu {
         int level = user.getLevel();
         int maxPets = level / 2;
         if (user.pets.size() < maxPets) {
-            System.out.print("\nWould you like to adopt a new animal? (y/n): ");
-            String input = s.nextLine().trim().toLowerCase();
-            if (input.equals("y")) {
-                choosePet(user);
-            }
+            mainmenu(user);
         } else {
             System.out.println("\nYou have reached the maximum number of animals for your current level.");
+            mainmenu(user);
         }
-        mainmenu(user);
     }
 
     public static final StringBuilder[] tree1;
@@ -490,7 +489,7 @@ public class Menu {
 
     public void viewTree(User user) {
         System.out.println("\n=== YOUR TREE : ===");
-        StringBuilder[] tree = null; 
+        StringBuilder[] tree = null;
 
         if (user.getLevel() < 6) {
             tree = tree1;
@@ -519,7 +518,7 @@ public class Menu {
             boolean placed = false;
 
             while (!placed && attempts < 10) {
-                if (tree == null || tree.length == 0) { 
+                if (tree == null || tree.length == 0) {
                     System.err.println("Warning: Tree array is null or empty. Cannot place pets.");
                     break;
                 }
@@ -532,7 +531,7 @@ public class Menu {
                 int col = random.nextInt(tree[row].length());
 
                 if (tree[row].charAt(col) != ' ') {
-                    tree[row].setCharAt(col, symbol.charAt(0)); 
+                    tree[row].setCharAt(col, symbol.charAt(0));
                     placed = true;
                 }
 
@@ -550,7 +549,7 @@ public class Menu {
         for (int i = 0; i < 99; i++) {
             System.out.println();
         }
-        if( user.getPets().size() < 5) {
+        if (user.getPets().size() < 5) {
             System.out.println("You need at least 5 pets to play the Memory Card Game.");
             mainmenu(user);
         } else {

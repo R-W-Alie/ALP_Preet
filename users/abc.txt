@@ -1,4 +1,9 @@
 abc
 abcd
-1
-5
+10
+0
+PET:Koala,koala,?
+PET:Squirrel,squirrel,??
+PET:Frog,frog,?
+PET:Sloth,sloth,?
+PET:Spider,spider,??
