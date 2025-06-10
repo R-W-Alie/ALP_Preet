@@ -2,10 +2,6 @@
 import java.io.*;
 import java.util.*;
 
-import FOlder.Bird;
-import FOlder.Frog;
-import FOlder.Pet;
-
 public class UserManager {
     public static final String USER_FOLDER = "users";
 

@@ -2,9 +2,6 @@
 import java.time.LocalDate;
 import java.util.*;
 
-import FOlder.Pet;
-import FOlder.PetData;
-
 public class Menu {
     private Scanner s = new Scanner(System.in);
     private String currentUser = null;
@@ -175,6 +172,9 @@ public class Menu {
                 case 4:
                     playMemoryGame(user);
                     break;
+                case 5:
+                    createPet(user);
+                    break;
                 case 0:
                     System.out.println("\nMay your roots find nourishment elsewhere.");
                     System.exit(0);
@@ -244,8 +244,12 @@ public class Menu {
 
             int reward = 1;
             user.addPoint(reward);
-            System.out.println("🌟 Growth achieved! +" + reward + " level(s). Current level: " + user.getLevel());
-
+            System.out.println("🌟 Growth achieved! +" + reward + " point. Current level: " + user.getLevel());
+            if (user.getPoint() >= 10) {
+                user.increaseLevel(1);
+                user.addPoint(-10); // Reset points after level up
+                System.out.println("🎉 Congratulations! You leveled up to level " + user.getLevel() + "!");
+            }
             UserManager.saveToFile(user);
         }
 
@@ -253,7 +257,7 @@ public class Menu {
         mainmenu(user);
     }
 
-    public void choosePet(User user) {
+    public void createPet(User user) {
         System.out.println("\nChoose an animal to add to your grove:");
 
         List<Pet> availablePets = new ArrayList<>();
@@ -310,7 +314,7 @@ public class Menu {
         System.out.println("\n=== My Animals ===");
         if (user.pets.isEmpty()) {
             System.out.println("You feel a presence missing beside you...");
-            choosePet(user);
+            createPet(user);
             return;
         }
         for (int i = 0; i < user.pets.size(); i++) {
@@ -319,8 +323,62 @@ public class Menu {
         }
     }
 
-    public void viewTree(User user) {
-        // Display treenya i still need to draw
+    public Void viewTree(User user) {
+        // Tree template as editable lines
+        StringBuilder[] tree = {
+                new StringBuilder("     ..-=--+=:.     "),
+                new StringBuilder("   .=##%#%#%###:    "),
+                new StringBuilder("   :#%%#%%#%%%#*=.  "),
+                new StringBuilder("  .==++#**#+=+###:  "),
+                new StringBuilder("         :+         ")
+        };
+
+        System.out.println("\n=== YOUR TREE : ===");
+
+        // Show plain tree if user is too early in progress
+        if (user.getLevel() < 1) {
+            for (StringBuilder line : tree) {
+                System.out.println(line);
+            }
+            return null;
+        }
+
+        List<Pet> pets = user.getPets();
+        Random random = new Random();
+
+        // Collect emoji representations of user's pets
+        List<String> petSymbols = new ArrayList<>();
+        for (Pet pet : pets) {
+            // petSymbols.add(pet.interact());
+            petSymbols.add(pet.getIcon()); // This should return an emoji string like "🐸"
+        }
+
+        // Place each pet emoji randomly on the tree (max 1 per iteration, up to 10
+        // tries)
+        for (String symbol : petSymbols) {
+            int attempts = 0;
+            boolean placed = false;
+
+            while (!placed && attempts < 10) {
+                int row = random.nextInt(tree.length);
+                int col = random.nextInt(tree[row].length());
+
+                // Only replace non-space characters to keep tree structure
+                if (tree[row].charAt(col) != ' ') {
+                    tree[row].setCharAt(col, symbol.charAt(0));
+                    placed = true;
+                }
+
+                attempts++;
+            }
+        }
+
+        // Print the final decorated tree
+        for (StringBuilder line : tree) {
+            System.out.println(line);
+        }
+
+        return null;
     }
 
     public void playMemoryGame(User user) {

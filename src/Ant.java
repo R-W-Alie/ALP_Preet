@@ -1,4 +1,5 @@
-package FOlder;
+
+
 // 🐜 Ant.java
 public class Ant extends Pet {
     private static final String[] ant_sentences = {

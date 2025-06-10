@@ -1,4 +1,5 @@
-package FOlder;
+
+
 // 🕷️
 public class Spider extends Pet {
     private static final String[] spider_sentences = {

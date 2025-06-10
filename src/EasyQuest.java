@@ -1,9 +1,7 @@
-package FOlder;
 
-import User;
 
-public class HardQuest extends Quest {
-    public HardQuest(String description, int plusHp) {
+public class EasyQuest extends Quest {
+    public EasyQuest(String description, int plusHp) {
         super(description, plusHp);
     }
 
@@ -12,7 +10,7 @@ public class HardQuest extends Quest {
     }
 
     public int getReward() {
-        return 3;
+        return 1;
     }
 
     @Override

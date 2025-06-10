@@ -2,8 +2,6 @@
 import java.time.LocalDate;
 import java.util.*;
 
-import FOlder.Pet;
-
 public class User {
     private String username;
     private String pass;
