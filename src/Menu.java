@@ -412,5 +412,13 @@ public class Menu {
         for (int i = 0; i < 99; i++) {
             System.out.println();
         }
+        if( user.getPets().size() < 5) {
+            System.out.println("You need at least 5 pets to play the Memory Card Game.");
+            mainmenu(user);
+        } else {
+            System.out.println("You have " + user.getPets().size() + " pets. Let's play!");
+            System.out.println("\n=== Memory Card Game ===");
+            MemoryCardGame.run(user, s);
+        }
     }
 }
