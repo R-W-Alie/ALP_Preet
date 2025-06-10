@@ -330,7 +330,6 @@ public class Menu {
         if (user.pets.isEmpty()) {
             System.out.println("You feel a presence missing beside you...");
             choosePet(user);
-            return;
         }
 
         for (int i = 0; i < user.pets.size(); i++) {
@@ -351,13 +350,11 @@ public class Menu {
         }
     }
 
-    // Deklarasikan tree arrays sebagai StringBuilder[]
     public static final StringBuilder[] tree1;
     public static final StringBuilder[] tree2;
     public static final StringBuilder[] tree3;
     public static final StringBuilder[] tree4;
     static {
-        // --- Definisi Awal sebagai String[] (ini yang Anda miliki) ---
         String[] tree1_str_temp = {
                 "                   ..-=--+=:.    ",
                 "             .=##%#%#%###:    ",
@@ -467,7 +464,6 @@ public class Menu {
                 "                                                    ..::----================================---::.. "
         };
 
-        // --- Konversi ke StringBuilder[] ---
         tree1 = new StringBuilder[tree1_str_temp.length];
         for (int i = 0; i < tree1_str_temp.length; i++) {
             tree1[i] = new StringBuilder(tree1_str_temp[i]);
@@ -491,18 +487,17 @@ public class Menu {
 
     public void viewTree(User user) {
         System.out.println("\n=== YOUR TREE : ===");
-        StringBuilder[] tree = null; // Ini sudah benar
+        StringBuilder[] tree = null; 
 
-        // Show plain tree if user is too early in progress
         if (user.getLevel() < 6) {
-            tree = tree1; // Sekarang tree1 sudah menjadi StringBuilder[]
+            tree = tree1;
         } else if (user.getLevel() < 11) {
-            tree = tree2; // tree2 juga
+            tree = tree2;
         } else if (user.getLevel() < 16) {
-            tree = tree3; // tree3 juga
+            tree = tree3;
         } else {
             System.out.println("Your tree is fully grown! 🌳");
-            for (StringBuilder line : tree4) { // tree4 juga
+            for (StringBuilder line : tree4) {
                 System.out.println(line.toString());
             }
             return;
@@ -545,6 +540,7 @@ public class Menu {
         for (StringBuilder line : tree) {
             System.out.println(line.toString());
         }
+        mainmenu(user);
     }
 
     public void playMemoryGame(User user) {
