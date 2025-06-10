@@ -1,6 +1,6 @@
 package FOlder;
 
-import Quest;
+import User;
 
 public class EasyQuest extends Quest {
     public EasyQuest(String description, int plusHp) {

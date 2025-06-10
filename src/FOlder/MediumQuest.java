@@ -1,6 +1,6 @@
 package FOlder;
 
-import Quest;
+import User;
 
 public class MediumQuest extends Quest {
     public MediumQuest(String description, int plusHp) {
