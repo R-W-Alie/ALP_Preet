@@ -1,37 +1,35 @@
 
+import java.time.LocalDate;
 import java.util.*;
 
 import FOlder.Pet;
 import FOlder.PetData;
-import FOlder.User;
-import FOlder.UserManager;
 
 public class Menu {
     private Scanner s = new Scanner(System.in);
     private String currentUser = null;
 
     public void welcome() {
-            System.out.println(
-            "\u001b[32m" +
-            "             U _____ u  _        ____   U  ___ u  __  __  U _____ u \r\n" +
-            " __        __\\| ___\"|/ |\"|    U /\"___|   \\/\"_ \\/U|' \\/ '|u\\| ___\"|/ \r\n" +
-            " \\\"\\      /\"/ |  _|\" U | | u  \\| | u     | | | |\\| |\\/| |/ |  _|\"   \r\n" +
-            " /\\ \\ /\\ / /\\ | |___  \\| |/__  | |/__.-,_| |_| | | |  | |  | |___   \r\n" +
-            "U  \\ V  V /  U|_____|  |_____|  \\____|\\_)-\\___/  |_|  |_|  |_____|  \r\n" +
-            "\u001b[33m" + 
-            ".-,_\\ /\\ /_,-.<<   >>  //  \\\\  _// \\\\      \\\\   <<,-,,-.   <<   >>  \r\n" +
-            " \\_)-'  '-(_/(__) (__)(_\")(\"_)(__)(__)    (__)   (./  \\.) (__) (__) \r\n" +
-            "\u001b[32m" + 
-            "  _____   U  ___ u     ____      ____    U _____ uU _____ u  _____  \r\n" +
-            " |_ \" _|   \\/\"_ \\/   U|  _\"\\ uU |  _\"\\ u \\| ___\"|/\\| ___\"|/ |_ \" _| \r\n" +
-            "   | |     | | | |   \\| |_) |/ \\| |_) |/  |  _|\"   |  _|\"     | |   \r\n" +
-            "  /| |\\.-,_| |_| |    |  __/    |  _ <    | |___   | |___    /| |\\  \r\n" +
-            " u |_|U \\_)-\\___/     |_|       |_| \\_\\   |_____|  |_____|  u |_|U  \r\n" +
-            "\u001b[33m" + 
-            " _// \\\\_     \\\\       ||>>_     //   \\\\_  <<   >>  <<   >>  _// \\\\_ \r\n" +
-            "(__) (__)   (__)     (__)__)   (__)  (__)(__) (__)(__) (__)(__) (__)\r\n" +
-            "\u001b[0m" 
-        );
+        System.out.println(
+                "\u001b[32m" +
+                        "             U _____ u  _        ____   U  ___ u  __  __  U _____ u \r\n" +
+                        " __        __\\| ___\"|/ |\"|    U /\"___|   \\/\"_ \\/U|' \\/ '|u\\| ___\"|/ \r\n" +
+                        " \\\"\\      /\"/ |  _|\" U | | u  \\| | u     | | | |\\| |\\/| |/ |  _|\"   \r\n" +
+                        " /\\ \\ /\\ / /\\ | |___  \\| |/__  | |/__.-,_| |_| | | |  | |  | |___   \r\n" +
+                        "U  \\ V  V /  U|_____|  |_____|  \\____|\\_)-\\___/  |_|  |_|  |_____|  \r\n" +
+                        "\u001b[33m" +
+                        ".-,_\\ /\\ /_,-.<<   >>  //  \\\\  _// \\\\      \\\\   <<,-,,-.   <<   >>  \r\n" +
+                        " \\_)-'  '-(_/(__) (__)(_\")(\"_)(__)(__)    (__)   (./  \\.) (__) (__) \r\n" +
+                        "\u001b[32m" +
+                        "  _____   U  ___ u     ____      ____    U _____ uU _____ u  _____  \r\n" +
+                        " |_ \" _|   \\/\"_ \\/   U|  _\"\\ uU |  _\"\\ u \\| ___\"|/\\| ___\"|/ |_ \" _| \r\n" +
+                        "   | |     | | | |   \\| |_) |/ \\| |_) |/  |  _|\"   |  _|\"     | |   \r\n" +
+                        "  /| |\\.-,_| |_| |    |  __/    |  _ <    | |___   | |___    /| |\\  \r\n" +
+                        " u |_|U \\_)-\\___/     |_|       |_| \\_\\   |_____|  |_____|  u |_|U  \r\n" +
+                        "\u001b[33m" +
+                        " _// \\\\_     \\\\       ||>>_     //   \\\\_  <<   >>  <<   >>  _// \\\\_ \r\n" +
+                        "(__) (__)   (__)     (__)__)   (__)  (__)(__) (__)(__) (__)(__) (__)\r\n" +
+                        "\u001b[0m");
 
         System.out.println("""
                 Welcome to Preet
@@ -187,9 +185,23 @@ public class Menu {
     }
 
     public void doQuest(User user) {
-        int playerLevel = user.getLevel();
-        List<String> dailyQuests = DoQuest.get5QuestsByLevel(playerLevel);
-        Set<Integer> completed = new HashSet<>();
+        LocalDate today = LocalDate.now();
+
+        // Check if user already has quests for today
+        if (user.getLastQuestDate() == null || !user.getLastQuestDate().equals(today)) {
+            // New day: generate new quests
+            int playerLevel = user.getLevel();
+            List<String> dailyQuests = DoQuest.get5QuestsByLevel(playerLevel);
+
+            user.setTodayQuests(dailyQuests);
+            user.setCompletedQuestIndices(new HashSet<>());
+            user.setLastQuestDate(today);
+            UserManager.saveToFile(user); // save new quest set
+        }
+
+        List<String> dailyQuests = user.getTodayQuests();
+        Set<Integer> completed = user.getCompletedQuestIndices();
+
         System.out.println("\n🌿 Your 5 quests for today:");
 
         while (completed.size() < dailyQuests.size()) {
@@ -201,7 +213,7 @@ public class Menu {
             }
 
             System.out.print("Choose a quest number to complete (or 0 to quit): ");
-            String input = s.nextLine().trim(); // use the class-level Scanner `s`
+            String input = s.nextLine().trim();
             int choice;
             try {
                 choice = Integer.parseInt(input);
@@ -212,8 +224,9 @@ public class Menu {
 
             if (choice == 0) {
                 System.out.println("🌙 Quitting quests for today.");
+                UserManager.saveToFile(user); // Save progress
                 mainmenu(user);
-                break;
+                return;
             }
 
             if (choice < 1 || choice > dailyQuests.size()) {
@@ -232,15 +245,13 @@ public class Menu {
             System.out.println("✅ Quest completed: " + dailyQuests.get(questIndex));
 
             int reward = 1;
-            user.increaseLevel(reward);
+            user.addPoint(reward);
             System.out.println("🌟 Growth achieved! +" + reward + " level(s). Current level: " + user.getLevel());
 
-            UserManager.saveToFile(user);
+            UserManager.saveToFile(user); // Save after each quest
         }
 
-        if (completed.size() == dailyQuests.size()) {
-            System.out.println("\n🎉 You completed all quests for today! Great job!");
-        }
+        System.out.println("\n🎉 You completed all quests for today! Great job!");
     }
 
     public void choosePet(User user) {

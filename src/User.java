@@ -1,5 +1,8 @@
-package FOlder;
+
+import java.time.LocalDate;
 import java.util.*;
+
+import FOlder.Pet;
 
 public class User {
     private String username;
@@ -7,6 +10,33 @@ public class User {
     private int level;
     private int point; // Atribut point baru
     ArrayList<Pet> pets = new ArrayList<>();
+    private List<String> todayQuests;
+    private Set<Integer> completedQuestIndices;
+    private LocalDate lastQuestDate;
+
+    public List<String> getTodayQuests() {
+        return todayQuests;
+    }
+
+    public void setTodayQuests(List<String> quests) {
+        this.todayQuests = quests;
+    }
+
+    public Set<Integer> getCompletedQuestIndices() {
+        return completedQuestIndices;
+    }
+
+    public void setCompletedQuestIndices(Set<Integer> completed) {
+        this.completedQuestIndices = completed;
+    }
+
+    public LocalDate getLastQuestDate() {
+        return lastQuestDate;
+    }
+
+    public void setLastQuestDate(LocalDate date) {
+        this.lastQuestDate = date;
+    }
 
     public User(String username, String pass, int level, int point) {
         this.username = username;
