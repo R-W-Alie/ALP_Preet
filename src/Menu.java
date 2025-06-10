@@ -268,7 +268,7 @@ public class Menu {
             return;
         }
 
-        if (user.pets.size() >= maxPets) {
+        if (user.pets.size() > maxPets) {
             System.out.println("You can only have " + maxPets + " animal(s) at your current level (" + level
                     + "). Level up to adopt more!");
             return;
@@ -359,7 +359,7 @@ public class Menu {
     public static final StringBuilder[] tree4;
     static {
         String[] tree1_str_temp = {
-                "                   ..-=--+=:.    ",
+                "               ..-=--+=:.    ",
                 "             .=##%#%#%###:    ",
                 "             :#%%#%%#%%%#*=.  ",
                 "            .==++#**#+=+###:  ",
