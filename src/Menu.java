@@ -165,14 +165,14 @@ public class Menu {
 
     public void doQuest(User user) {
         int playerLevel = user.getLevel();
-        ArrayList<String> dailyQuests = DoQuest.get5QuestsByLevel(playerLevel);
-        Set<Integer> completedIndices = new HashSet<>();
+        List<String> dailyQuests = DoQuest.get5QuestsByLevel(playerLevel);
+        Set<Integer> completed = new HashSet<>();
         System.out.println("\n🌿 Your 5 quests for today:");
 
-        while (completedIndices.size() < dailyQuests.size()) {
+        while (completed.size() < dailyQuests.size()) {
             System.out.println("\nAvailable quests:");
             for (int i = 0; i < dailyQuests.size(); i++) {
-                if (!completedIndices.contains(i)) {
+                if (!completed.contains(i)) {
                     System.out.println((i + 1) + ". " + dailyQuests.get(i));
                 }
             }
@@ -200,12 +200,12 @@ public class Menu {
 
             int questIndex = choice - 1;
 
-            if (completedIndices.contains(questIndex)) {
+            if (completed.contains(questIndex)) {
                 System.out.println("❌ You already completed that quest today. Choose another.");
                 continue;
             }
 
-            completedIndices.add(questIndex);
+            completed.add(questIndex);
             System.out.println("✅ Quest completed: " + dailyQuests.get(questIndex));
 
             int reward = 1;
@@ -215,7 +215,7 @@ public class Menu {
             UserManager.saveToFile(user);
         }
 
-        if (completedIndices.size() == dailyQuests.size()) {
+        if (completed.size() == dailyQuests.size()) {
             System.out.println("\n🎉 You completed all quests for today! Great job!");
         }
     }

@@ -9,7 +9,6 @@ public abstract class Quest {
 
     public Quest(String description, int plusHp) {
         this.description = description;
-        this.plusHp = plusHp;
         this.pluspoint = pluspoint;
     }
 
