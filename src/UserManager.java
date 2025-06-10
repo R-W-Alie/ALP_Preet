@@ -20,20 +20,20 @@ public class UserManager {
             writer.write(user.getLevel() + "\n");
             writer.write(user.getPoint() + "\n"); // Menyimpan point baru
 
-            for (Pet pet : user.pets) {
-                String type;
-                // Perhatikan: UserManager ini masih hanya akan menyimpan Frog dan Bird.
-                // Hewan peliharaan jenis lain akan diabaikan saat menyimpan.
-                if (pet instanceof Frog) {
-                    type = "Frog";
-                } else if (pet instanceof Bird) {
-                    type = "Bird";
-                } else {
-                    continue; // Lewati jenis hewan peliharaan yang tidak dikenali
-                }
+            // for (Pet pet : user.pets) {
+            //     String type;
+            //     // Perhatikan: UserManager ini masih hanya akan menyimpan Frog dan Bird.
+            //     // Hewan peliharaan jenis lain akan diabaikan saat menyimpan.
+            //     if (pet instanceof Frog) {
+            //         type = "Frog";
+            //     } else if (pet instanceof Bird) {
+            //         type = "Bird";
+            //     } else {
+            //         continue; // Lewati jenis hewan peliharaan yang tidak dikenali
+            //     }
 
-                // writer.write("PET:" + type + "," + pet.getName() + "," + pet.getHp() + "\n");
-            }
+            //     //writer.write("PET:" + type + "," + pet.getName() + "," + pet.getHp() + "\n");
+            // }
 
         } catch (IOException e) {
             System.err.println("Failed to save user data:");
@@ -65,17 +65,17 @@ public class UserManager {
                         String petName = parts[1];
                         int petHp = Integer.parseInt(parts[2]);
 
-                        // Pet pet = switch (type) {
-                        //     // Perhatikan: UserManager ini masih hanya akan memuat Frog dan Bird.
-                        //     // Jenis hewan peliharaan lain tidak akan dimuat.
-                        //     case "Frog" -> new Frog(petName, petHp);
-                        //     case "Bird" -> new Bird(petName, petHp);
-                        //     default -> null; // Jika jenis tidak dikenali, jangan buat objek pet
-                        // };
+                        //Pet pet = switch (type) {
+                            // Perhatikan: UserManager ini masih hanya akan memuat Frog dan Bird.
+                            // Jenis hewan peliharaan lain tidak akan dimuat.
+                            //case "Frog" -> new Frog(petName, petHp);
+                            //case "Bird" -> new Bird(petName, petHp);
+                            //default -> null; // Jika jenis tidak dikenali, jangan buat objek pet
+                        //};
 
-                        // if (pet != null) {
-                        //     user.pets.add(pet);
-                        // }
+                        //if (pet != null) {
+                            //user.pets.add(pet);
+                        //}
                     }
                 }
             }

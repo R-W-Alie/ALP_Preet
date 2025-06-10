@@ -14,7 +14,6 @@ public abstract class Pet {
         this.icon = icon;
     }
 
-    // Getters
     public int getId() {
         return this.id;
     }
@@ -31,7 +30,6 @@ public abstract class Pet {
         return this.icon;
     }
 
-    // Setters
     public void setId(int id) {
         this.id = id;
     }
@@ -48,13 +46,10 @@ public abstract class Pet {
         this.icon = icon;
     }
 
-    // New: species name (based on class name)
     public String getSpecies() {
-        return this.getClass().getSimpleName(); // e.g., "Ant", "Butterfly"
+        return this.getClass().getSimpleName();
     }
 
-
-    // New: display full info (for viewAnimals)
     public String getDisplayInfo() {
         return icon + " " + name + " the " + getSpecies();
     }
