@@ -323,6 +323,7 @@ public class Menu {
         user.pets.add(chosenPet);
         System.out.println("You have adopted " + chosenPet.getName() + " " + chosenPet.getIcon() + "!");
         UserManager.saveToFile(user); // Save user changes
+        mainmenu(user);
     }
 
     public void viewAnimals(User user) {
@@ -330,11 +331,12 @@ public class Menu {
         if (user.pets.isEmpty()) {
             System.out.println("You feel a presence missing beside you...");
             choosePet(user);
+            return;
         }
 
         for (int i = 0; i < user.pets.size(); i++) {
             Pet pet = user.pets.get(i);
-            System.out.printf("%d. %s %s (HP: %d)\n", i + 1, pet.getIcon(), pet.getName());
+            System.out.printf("%d. %s %s\n", i + 1, pet.getIcon(), pet.getName());
         }
 
         int level = user.getLevel();
@@ -348,6 +350,7 @@ public class Menu {
         } else {
             System.out.println("\nYou have reached the maximum number of animals for your current level.");
         }
+        mainmenu(user);
     }
 
     public static final StringBuilder[] tree1;
@@ -555,5 +558,6 @@ public class Menu {
             System.out.println("\n=== Memory Card Game ===");
             MemoryCardGame.run(user, s);
         }
+        mainmenu(user);
     }
 }
