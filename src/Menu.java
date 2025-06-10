@@ -297,9 +297,8 @@ public class Menu {
         // Show available pets
         for (int i = 0; i < availablePets.size(); i++) {
             Pet pet = availablePets.get(i);
-            System.out.print("%d. %s %s (HP: %d)%n", i + 1, pet.getIcon(), pet.getName());
+            System.out.printf("%d. %s %s%n", i + 1, pet.getIcon(), pet.getName());
         }
-
         System.out.print("Enter the number of the animal you want to adopt (or 0 to cancel): ");
         String input = s.nextLine().trim();
         int choice;
@@ -556,6 +555,14 @@ public class Menu {
     public void playMemoryGame(User user) {
         for (int i = 0; i < 99; i++) {
             System.out.println();
+        }
+        if( user.getPets().size() < 5) {
+            System.out.println("You need at least 5 pets to play the Memory Card Game.");
+            mainmenu(user);
+        } else {
+            System.out.println("You have " + user.getPets().size() + " pets. Let's play!");
+            System.out.println("\n=== Memory Card Game ===");
+            MemoryCardGame.run(user, s);
         }
     }
 }
