@@ -1,3 +1,7 @@
+
+
+import FOlder.User;
+
 public abstract class Quest {
     protected String description;
     protected int plusHp;

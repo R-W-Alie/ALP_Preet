@@ -1,7 +1,8 @@
+
 import java.util.*;
 
 public class DoQuest {
-    private static final List<String> veryEasyQuests = Arrays.asList(
+    private static final List<String> EasyQuests = Arrays.asList(
             "Drink a glass of water 💧",
                     "Take 3 deep breaths 🌬️",
                     "Stretch your arms for 10 seconds 🙆‍♂️",
@@ -53,7 +54,7 @@ public class DoQuest {
                     "Look in the mirror and blink slowly 🪞",
                     "Tap a rhythm on your desk or lap 🥁");
 
-    private static final List<String> easyQuests = Arrays.asList(
+    private static final List<String> MedQuests = Arrays.asList(
             "Write a one-sentence journal entry 📓",
                 "Do 5 jumping jacks or squats 🏃‍♀️",
                 "Set a 2-minute timer and breathe ⏱️",
@@ -105,7 +106,7 @@ public class DoQuest {
                 "Take 3 photos of calming things 🌼📷",
                 "Make up a motivational mantra and say it aloud 🧘‍♀️🗣️");
 
-    private static final List<String> harderQuests = Arrays.asList(
+    private static final List<String> HardQuests = Arrays.asList(
             "Journal for 5+ minutes 📘",
                 "Exercise or move for 10 minutes 💪",
                 "Meditate for 5 minutes 🧘‍♂️",
@@ -158,17 +159,17 @@ public class DoQuest {
                 "Create a mini calming routine (1–2 steps) 🧘‍♀️🕯️");
 
     public static List<String> get5QuestsByLevel(int level) {
-        List<String> pool;
+        List<String> toDo;
 
         if (level <= 3) {
-            pool = new ArrayList<>(veryEasyQuests);
+            toDo = new ArrayList<>(EasyQuests);
         } else if (level <= 6) {
-            pool = new ArrayList<>(easyQuests);
+            toDo = new ArrayList<>(MedQuests);
         } else {
-            pool = new ArrayList<>(harderQuests);
-        }
+            toDo = new ArrayList<>(HardQuests);
+        }   
 
-        Collections.shuffle(pool); // Shuffle the list for randomness
-        return pool.subList(0, Math.min(5, pool.size())); // Return up to 5 quests
+        Collections.shuffle(toDo); // Shuffle the list for randomness
+        return toDo.subList(0, Math.min(5, toDo.size())); // Return up to 5 quests
     }
 }

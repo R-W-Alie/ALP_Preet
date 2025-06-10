@@ -1,3 +1,7 @@
+package FOlder;
+
+import Quest;
+
 public class HardQuest extends Quest {
     public HardQuest(String description, int plusHp) {
         super(description, plusHp);

@@ -1,3 +1,4 @@
+package FOlder;
 // 🐿️
 public class Squirrel extends Pet {
     private static final String[] squirrel_sentences = {

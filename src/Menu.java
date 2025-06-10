@@ -1,85 +1,14 @@
+
 import java.util.*;
+
+import FOlder.Pet;
+import FOlder.PetData;
+import FOlder.User;
+import FOlder.UserManager;
 
 public class Menu {
     private Scanner s = new Scanner(System.in);
     private String currentUser = null;
-    public class PetData {
-        public static final List<Pet> allPets = Arrays.asList(
-        new Pet("ants", 10, new String[] { // Sentences array defined explicitly here
-            "The ants are marching.",
-            "An ant scurries across the floor."
-        }, "🐜") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("koala", 10, new String[] { // Sentences array defined explicitly here
-            "The koala is munching eucalyptus.",
-            "The koala looks very sleepy."
-        }, "🐨") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("monkey", 10, new String[] { // Sentences array defined explicitly here
-            "The monkey swings through the trees.",
-            "A monkey chatters playfully."
-        }, "🐵") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("squirrel", 10, new String[] { // Sentences array defined explicitly here
-            "The squirrel buries a nut.",
-            "A squirrel climbs swiftly up the tree."
-        }, "🐿️") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("owl", 10, new String[] { // Sentences array defined explicitly here
-            "The owl hoots softly.",
-            "An owl gazes with wise eyes."
-        }, "🦉") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("frog", 10, new String[] { // Sentences array defined explicitly here
-            "The frog croaks by the pond.",
-            "A frog leaps into the water."
-        }, "🐸") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("bee", 10, new String[] { // Sentences array defined explicitly here
-            "The bee buzzes around a flower.",
-            "A bee collects nectar."
-        }, "🐝") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Caterpillar("caterpillar", 10), // Caterpillar already handles its own sentences internally
-        new Pet("snake", 10, new String[] { // Sentences array defined explicitly here
-            "The snake slithers through the grass.",
-            "A snake basks in the sun."
-        }, "🐍") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("spider", 10, new String[] { // Sentences array defined explicitly here
-            "The spider weaves a web.",
-            "A spider hangs patiently from a thread."
-        }, "🕷️") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("lizard", 10, new String[] { // Sentences array defined explicitly here
-            "The lizard basks in the sun.",
-            "A lizard scurries across a rock."
-        }, "🦎") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("bird", 10, new String[] { // Sentences array defined explicitly here
-            "The bird chirps a happy tune.",
-            "A bird soars high in the sky."
-        }, "🦜") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        },
-        new Pet("sloth", 10, new String[] { // Sentences array defined explicitly here
-            "The sloth moves very slowly.",
-            "A sloth hangs upside down."
-        }, "🦥") {
-            @Override public void interact() { System.out.println(getIcon() + " " + getSentences()[new Random().nextInt(getSentences().length)]); }
-        }
-    );
-}
 
     public void welcome() {
         System.out.println("""
@@ -170,8 +99,7 @@ public class Menu {
             }
         }
 
-        int level;
-        level = 1;
+        int level = 1;
         int point = 0;
 
         User newUser = new User(username, password, level, point);
@@ -235,9 +163,60 @@ public class Menu {
         }
     }
 
-    public void playMemoryGame(User user) {
-        for (int i = 0; i < 99; i++) {
-            System.out.println();
+    public void doQuest(User user) {
+        int playerLevel = user.getLevel();
+        ArrayList<String> dailyQuests = DoQuest.get5QuestsByLevel(playerLevel);
+        Set<Integer> completedIndices = new HashSet<>();
+        System.out.println("\n🌿 Your 5 quests for today:");
+
+        while (completedIndices.size() < dailyQuests.size()) {
+            System.out.println("\nAvailable quests:");
+            for (int i = 0; i < dailyQuests.size(); i++) {
+                if (!completedIndices.contains(i)) {
+                    System.out.println((i + 1) + ". " + dailyQuests.get(i));
+                }
+            }
+
+            System.out.print("Choose a quest number to complete (or 0 to quit): ");
+            String input = s.nextLine().trim(); // use the class-level Scanner `s`
+            int choice;
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("❌ Invalid input. Please enter a number.");
+                continue;
+            }
+
+            if (choice == 0) {
+                System.out.println("🌙 Quitting quests for today.");
+                mainmenu(user);
+                break;
+            }
+
+            if (choice < 1 || choice > dailyQuests.size()) {
+                System.out.println("❌ Please choose a number between 1 and " + dailyQuests.size());
+                continue;
+            }
+
+            int questIndex = choice - 1;
+
+            if (completedIndices.contains(questIndex)) {
+                System.out.println("❌ You already completed that quest today. Choose another.");
+                continue;
+            }
+
+            completedIndices.add(questIndex);
+            System.out.println("✅ Quest completed: " + dailyQuests.get(questIndex));
+
+            int reward = 1;
+            user.increaseLevel(reward);
+            System.out.println("🌟 Growth achieved! +" + reward + " level(s). Current level: " + user.getLevel());
+
+            UserManager.saveToFile(user);
+        }
+
+        if (completedIndices.size() == dailyQuests.size()) {
+            System.out.println("\n🎉 You completed all quests for today! Great job!");
         }
     }
 
@@ -293,7 +272,7 @@ public class Menu {
         Pet chosenPet = availablePets.get(choice - 1);
         user.pets.add(chosenPet);
         System.out.println("You have adopted " + chosenPet.getName() + " " + chosenPet.getIcon() + "!");
-        UserManager.saveToFile(user);  // Simpan perubahan user
+        UserManager.saveToFile(user); // Simpan perubahan user
     }
 
     public void viewAnimals(User user) {
@@ -309,65 +288,13 @@ public class Menu {
         }
     }
 
-        public void viewTree(User user) {
-            // Display treenya i still need to draw
-        }
-
-        public void doQuest(User user) {
-            int playerLevel = user.getLevel();
-            List<String> dailyQuests = DoQuest.get5QuestsByLevel(playerLevel); // Make sure this exists
-            Set<Integer> completedIndices = new HashSet<>();
-            System.out.println("\n🌿 Your 5 quests for today:");
-
-            while (completedIndices.size() < dailyQuests.size()) {
-                System.out.println("\nAvailable quests:");
-                for (int i = 0; i < dailyQuests.size(); i++) {
-                    if (!completedIndices.contains(i)) {
-                        System.out.println((i + 1) + ". " + dailyQuests.get(i));
-                    }
-                }
-
-                System.out.print("Choose a quest number to complete (or 0 to quit): ");
-                String input = s.nextLine().trim(); // use the class-level Scanner `s`
-                int choice;
-                try {
-                    choice = Integer.parseInt(input);
-                } catch (NumberFormatException e) {
-                    System.out.println("❌ Invalid input. Please enter a number.");
-                    continue;
-                }
-
-                if (choice == 0) {
-                    System.out.println("🌙 Quitting quests for today.");
-                    mainmenu(user);
-                    break;
-                }
-
-                if (choice < 1 || choice > dailyQuests.size()) {
-                    System.out.println("❌ Please choose a number between 1 and " + dailyQuests.size());
-                    continue;
-                }
-
-                int questIndex = choice - 1;
-
-                if (completedIndices.contains(questIndex)) {
-                    System.out.println("❌ You already completed that quest today. Choose another.");
-                    continue;
-                }
-
-                completedIndices.add(questIndex);
-                System.out.println("✅ Quest completed: " + dailyQuests.get(questIndex));
-
-                int reward = 1;
-                user.increaseLevel(reward);
-                System.out.println("🌟 Growth achieved! +" + reward + " level(s). Current level: " + user.getLevel());
-
-                UserManager.saveToFile(user);
-            }
-
-            if (completedIndices.size() == dailyQuests.size()) {
-                System.out.println("\n🎉 You completed all quests for today! Great job!");
-            }
-        }
-
+    public void viewTree(User user) {
+        // Display treenya i still need to draw
     }
+
+    public void playMemoryGame(User user) {
+        for (int i = 0; i < 99; i++) {
+            System.out.println();
+        }
+    }
+}

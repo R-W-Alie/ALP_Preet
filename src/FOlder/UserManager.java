@@ -1,5 +1,6 @@
+package FOlder;
 import java.io.*;
-import java.util.ArrayList; // Pastikan ini diimpor
+import java.util.*;
 
 public class UserManager {
     public static final String USER_FOLDER = "users";
@@ -49,10 +50,11 @@ public class UserManager {
             String uname = reader.readLine();
             String pass = reader.readLine();
             int level = Integer.parseInt(reader.readLine());
-            int point = Integer.parseInt(reader.readLine()); // Memuat point baru
+            String pointLine = reader.readLine();
+            int point = pointLine != null ? Integer.parseInt(pointLine) : 0;
 
             // Menggunakan konstruktor User yang diperbarui dengan 'point'
-            User user = new User(uname, pass, level, point); 
+            User user = new User(uname, pass, level, point);
 
             String line;
             while ((line = reader.readLine()) != null) {
