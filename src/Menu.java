@@ -137,7 +137,7 @@ public class Menu {
         User user = UserManager.loadFromFile(username);
 
         if (user == null) {
-  4          System.out.println("User not found or file corrupted.");
+            System.out.println("User not found or file corrupted.");
         } else if (!user.getPassword().equals(password)) {
             System.out.println("Incorrect password.");
         } else {
@@ -187,16 +187,14 @@ public class Menu {
     public void doQuest(User user) {
         LocalDate today = LocalDate.now();
 
-        // Check if user already has quests for today
         if (user.getLastQuestDate() == null || !user.getLastQuestDate().equals(today)) {
-            // New day: generate new quests
             int playerLevel = user.getLevel();
             List<String> dailyQuests = DoQuest.get5QuestsByLevel(playerLevel);
 
             user.setTodayQuests(dailyQuests);
             user.setCompletedQuestIndices(new HashSet<>());
             user.setLastQuestDate(today);
-            UserManager.saveToFile(user); // save new quest set
+            UserManager.saveToFile(user);
         }
 
         List<String> dailyQuests = user.getTodayQuests();
@@ -224,7 +222,7 @@ public class Menu {
 
             if (choice == 0) {
                 System.out.println("🌙 Quitting quests for today.");
-                UserManager.saveToFile(user); // Save progress
+                UserManager.saveToFile(user);
                 mainmenu(user);
                 return;
             }
@@ -248,16 +246,16 @@ public class Menu {
             user.addPoint(reward);
             System.out.println("🌟 Growth achieved! +" + reward + " level(s). Current level: " + user.getLevel());
 
-            UserManager.saveToFile(user); // Save after each quest
+            UserManager.saveToFile(user);
         }
 
         System.out.println("\n🎉 You completed all quests for today! Great job!");
+        mainmenu(user);
     }
 
     public void choosePet(User user) {
         System.out.println("\nChoose an animal to add to your grove:");
 
-        // Filter pets yang BELUM dimiliki user
         List<Pet> availablePets = new ArrayList<>();
         for (Pet pet : PetData.allPets) {
             boolean owned = false;
@@ -277,7 +275,6 @@ public class Menu {
             return;
         }
 
-        // Tampilkan hewan yang belum dimiliki
         for (int i = 0; i < availablePets.size(); i++) {
             Pet pet = availablePets.get(i);
             System.out.printf("%d. %s %s (HP: %d)%n", i + 1, pet.getIcon(), pet.getName(), pet.getHp());
@@ -306,7 +303,7 @@ public class Menu {
         Pet chosenPet = availablePets.get(choice - 1);
         user.pets.add(chosenPet);
         System.out.println("You have adopted " + chosenPet.getName() + " " + chosenPet.getIcon() + "!");
-        UserManager.saveToFile(user); // Simpan perubahan user
+        UserManager.saveToFile(user);
     }
 
     public void viewAnimals(User user) {
