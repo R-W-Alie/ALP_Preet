@@ -257,9 +257,23 @@ public class Menu {
         mainmenu(user);
     }
 
-    public void createPet(User user) {
+    public void choosePet(User user) {
         System.out.println("\nChoose an animal to add to your grove:");
 
+        int level = user.getLevel();
+        int maxPets = level / 2;
+
+        if (level < 2) {
+            System.out.println("You need to be at least level 2 to adopt a pet.");
+            return;
+        }
+
+        if (user.pets.size() >= maxPets) {
+            System.out.println("You can only have " + maxPets + " animal(s) at your current level (" + level + "). Level up to adopt more!");
+            return;
+        }
+
+        // Filter pets not owned by user
         List<Pet> availablePets = new ArrayList<>();
         for (Pet pet : PetData.allPets) {
             boolean owned = false;
@@ -279,9 +293,10 @@ public class Menu {
             return;
         }
 
+        // Show available pets
         for (int i = 0; i < availablePets.size(); i++) {
             Pet pet = availablePets.get(i);
-            System.out.printf("%d. %s %s (HP: %d)%n", i + 1, pet.getIcon(), pet.getName(), pet.getHp());
+            System.out.print("%d. %s %s (HP: %d)%n", i + 1, pet.getIcon(), pet.getName());
         }
 
         System.out.print("Enter the number of the animal you want to adopt (or 0 to cancel): ");
@@ -307,22 +322,35 @@ public class Menu {
         Pet chosenPet = availablePets.get(choice - 1);
         user.pets.add(chosenPet);
         System.out.println("You have adopted " + chosenPet.getName() + " " + chosenPet.getIcon() + "!");
-        UserManager.saveToFile(user);
+        UserManager.saveToFile(user); // Save user changes
     }
 
     public void viewAnimals(User user) {
         System.out.println("\n=== My Animals ===");
         if (user.pets.isEmpty()) {
             System.out.println("You feel a presence missing beside you...");
-            createPet(user);
+            choosePet(user);
             return;
         }
+
         for (int i = 0; i < user.pets.size(); i++) {
             Pet pet = user.pets.get(i);
-            System.out.printf("%d. %s %s (HP: %d)%n", i + 1, pet.getIcon(), pet.getName(), pet.getHp());
+            System.out.printf("%d. %s %s (HP: %d)\n", i + 1, pet.getIcon(), pet.getName());
+        }
+
+        int level = user.getLevel();
+        int maxPets = level / 2;
+        if (user.pets.size() < maxPets) {
+            System.out.print("\nWould you like to adopt a new animal? (y/n): ");
+            String input = s.nextLine().trim().toLowerCase();
+            if (input.equals("y")) {
+                choosePet(user);
+            }
+        } else {
+            System.out.println("\nYou have reached the maximum number of animals for your current level.");
         }
     }
-
+    
     public Void viewTree(User user) {
         // Tree template as editable lines
         StringBuilder[] tree = {

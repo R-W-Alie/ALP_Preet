@@ -9,8 +9,8 @@ public class Lizard extends Pet {
         "The lizard blinks slowly."
     };
 
-    public Lizard(String name, int fun) {
-        super(name, fun, lizard_sentences, "🦎");
+    public Lizard(String name) {
+        super(name, lizard_sentences, "🦎");
     }
 
     @Override

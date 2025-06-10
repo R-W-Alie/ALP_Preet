@@ -9,8 +9,8 @@ public class Sloth extends Pet {
         "The sloth scratches lazily."
     };
 
-    public Sloth(String name, int fun) {
-        super(name, fun, sloth_sentences, "🦥");
+    public Sloth(String name) {
+        super(name, sloth_sentences, "🦥");
     }
 
     @Override

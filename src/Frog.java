@@ -9,8 +9,8 @@ public class Frog extends Pet {
         "The frog sits calmly on a lily pad."
     };
 
-    public Frog(String name, int fun) {
-        super(name, fun, frog_sentences, "🐸");
+    public Frog(String name) {
+        super(name, frog_sentences, "🐸");
     }
 
     @Override

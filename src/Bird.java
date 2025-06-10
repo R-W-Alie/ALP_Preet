@@ -9,8 +9,8 @@ public class Bird extends Pet {
         "The bird tilts its head curiously."
     };
 
-    public Bird(String name, int fun) {
-        super(name, fun, bird_sentences, "🦜");
+    public Bird(String name) {
+        super(name, bird_sentences, "🦜");
     }
 
     @Override
