@@ -158,6 +158,7 @@ public class Menu {
                 System.out.print("Choose an option: ");
                 try {
                     choice = s.nextInt();
+                    s.nextLine();
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input. Please enter a number.");
                     s.next();
