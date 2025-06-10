@@ -1,9 +1,9 @@
 abc
 abcd
 10
-0
-PET:Koala,koala,?
-PET:Squirrel,squirrel,??
-PET:Frog,frog,?
-PET:Sloth,sloth,?
-PET:Spider,spider,??
+5
+PET:Koala,koala,🐨
+PET:Squirrel,squirrel,🐿️
+PET:Frog,frog,🐸
+PET:Sloth,sloth,🦥
+PET:Spider,spider,🕷️
