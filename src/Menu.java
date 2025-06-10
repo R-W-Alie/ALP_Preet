@@ -359,7 +359,7 @@ public class Menu {
     public static final StringBuilder[] tree4;
     static {
         String[] tree1_str_temp = {
-                "                   ..-=--+=:.    ",
+                "               ..-=--+=:.    ",
                 "             .=##%#%#%###:    ",
                 "             :#%%#%%#%%%#*=.  ",
                 "            .==++#**#+=+###:  ",
